@@ -130,24 +130,6 @@
       "dateStarted": "2026-04-24 10:34:16.570",
       "dateFinished": "2026-04-24 10:34:16.595",
       "status": "ERROR"
-    },
-    {
-      "text": "%spark.pyspark\n",
-      "user": "jhkim",
-      "dateUpdated": "2026-04-24 10:34:16.570",
-      "progress": 0,
-      "config": {},
-      "settings": {
-        "params": {},
-        "forms": {}
-      },
-      "apps": [],
-      "runtimeInfos": {},
-      "progressUpdateIntervalMs": 500,
-      "jobName": "paragraph_1776994456570_972759534",
-      "id": "paragraph_1776994456570_972759534",
-      "dateCreated": "2026-04-24 10:34:16.570",
-      "status": "READY"
     }
   ],
   "name": "sync_test_A",
