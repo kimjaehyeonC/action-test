@@ -1,4 +1,4 @@
-name: Hello Action
+name: Add ipynb cell 
 
 on:
   push:
