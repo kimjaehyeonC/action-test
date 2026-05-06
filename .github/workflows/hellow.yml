@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 저장소 가져오기
+        uses: actions/checkout@v4
+        
       - name: 인사 출력
         run: echo "Hello! Action이 실행됐어요!"
 
