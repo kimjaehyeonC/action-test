@@ -2,20 +2,39 @@ name: Hello Action
 
 on:
   push:
+    paths:
+    - '**.ipynb'
 
 jobs:
-  hello:
+  modify:
     runs-on: ubuntu-latest
+    permissions:
+      write
 
     steps:
-      - name: 저장소 가져오기
-        uses: actions/checkout@v4
+    - name: 저장소 가져오기
+      run: |
+        python3 - <<'EOF'
+        import json, glob
         
-      - name: 인사 출력
-        run: echo "Hello! Action이 실행됐어요!"
-
-      - name: 현재 시간 출력
-        run: date
-
-      - name: push한 파일 목록 출력
-        run: git log --name-only -1
+        for path in glob.glob("**/*.ipynb", recursive=True):
+              nb = json.load(open(path))
+              new_cell = {
+                  "cell_type": "code",
+                  "execution_count": None,
+                  "metadata": {},
+                  "outputs": [],
+                  "source": ["print('Action이 추가했어요!')"]
+              }
+              nb["cells"].append(new_cell)
+              json.dump(nb, open(path, "w"), ensure_ascii=False, indent=2)
+              print(f"수정완료: {path}")
+          EOF
+    - name: 변경사항 커밋 & 푸시
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add .
+        git diff --cached --quiet || git commit -m "auto: Action이 셀 추가함 [skip ci]"
+        git push
+        
