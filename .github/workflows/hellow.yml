@@ -9,7 +9,7 @@ jobs:
   modify:
     runs-on: ubuntu-latest
     permissions:
-      write
+      contents: write
 
     steps:
     - name: 저장소 가져오기
