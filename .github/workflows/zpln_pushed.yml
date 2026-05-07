@@ -46,6 +46,8 @@ on:
 jobs:
   convert:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: A레포 가져오기
