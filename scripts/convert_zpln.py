@@ -40,7 +40,7 @@ def zpln_to_ipynb(src: Path, dst: Path):
                 "language": "python",
                 "name": "python3"
             },
-            "language_info": {"name": "python", "version": "3.8.0"},
+            "language_info": {"name": "python", "version": "3.11.14"},
             "zeppelin_note_name": zpln.get("name", src.stem),
         },
         "cells": cells,

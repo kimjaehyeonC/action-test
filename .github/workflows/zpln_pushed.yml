@@ -1,3 +1,41 @@
+# name: Convert Zpln to ipynb
+
+# on:
+#   push:
+#     paths:
+#     - '**.zpln'
+
+# jobs:
+#   modify:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: write
+
+#     steps:
+#     - name: 저장소 가져오기
+#       uses: actions/checkout@v4
+    
+#     - name: zpln → ipynb 변환
+#       run: |
+#         find . -name "*.zpln" | while read zpln_file; do
+#           ipynb_file="ipynb/${zpln_file#./}"
+#           ipynb_file="${ipynb_file%.zpln}.ipynb"
+#           python3 scripts/convert_zpln.py "$zpln_file" "$ipynb_file"
+#         done
+
+#     - name: 변경사항 커밋 & 푸시
+#       run: |
+#         git config user.name "github-actions[bot]"
+#         git config user.email "github-actions[bot]@users.noreply.github.com"
+#         git add .
+#         if git diff --cached --quiet; then
+#           echo "변경사항 없음, 스킵"
+#         else
+#           git commit -m "auto: zpln→ipynb 변환 [skip ci]"
+#           git pull --rebase
+#           git push
+#         fi
+
 name: Convert Zpln to ipynb
 
 on:
@@ -6,25 +44,32 @@ on:
     - '**.zpln'
 
 jobs:
-  modify:
+  convert:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
-    - name: 저장소 가져오기
+    - name: A레포 가져오기
       uses: actions/checkout@v4
-    
+
+    - name: B레포 가져오기
+      uses: actions/checkout@v4
+      with:
+        repository: kimjaehyeonC/action-test-ipynb
+        token: ${{ secrets.IPYNB_REPO_TOKEN }}
+        path: ipynb_repo
+
     - name: zpln → ipynb 변환
       run: |
         find . -name "*.zpln" | while read zpln_file; do
-          ipynb_file="ipynb/${zpln_file#./}"
-          ipynb_file="${ipynb_file%.zpln}.ipynb"
-          python3 scripts/convert_zpln.py "$zpln_file" "$ipynb_file"
+          rel="${zpln_file#./}"
+          ipynb_file="ipynb_repo/${rel%.zpln}.ipynb"
+          mkdir -p "$(dirname "$ipynb_file")"
+          python3 scripts/convert.py "$zpln_file" "$ipynb_file"
         done
 
-    - name: 변경사항 커밋 & 푸시
+    - name: B레포에 커밋 & 푸시
       run: |
+        cd ipynb_repo
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add .
