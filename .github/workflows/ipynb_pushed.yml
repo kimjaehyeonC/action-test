@@ -27,5 +27,6 @@ jobs:
           echo "변경사항 없음, 스킵"
         else
           git commit -m "auto: Action이 셀 추가함 [skip ci]"
-        git pull --rebase
-        git push
+          git pull --rebase
+          git push
+        fi
