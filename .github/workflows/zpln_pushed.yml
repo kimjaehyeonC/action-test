@@ -66,7 +66,7 @@ jobs:
           rel="${zpln_file#./}"
           ipynb_file="ipynb_repo/${rel%.zpln}.ipynb"
           mkdir -p "$(dirname "$ipynb_file")"
-          python3 scripts/convert.py "$zpln_file" "$ipynb_file"
+          python3 scripts/convert_zpln.py "$zpln_file" "$ipynb_file"
         done
 
     - name: B레포에 커밋 & 푸시
