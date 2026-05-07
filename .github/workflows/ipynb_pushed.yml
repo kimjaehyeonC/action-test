@@ -4,8 +4,7 @@ on:
   push:
     paths:
     - '**.ipynb'
-    paths-ignore:
-      - 'ipynb/**'
+    - '!ipynb/**' 
 
 jobs:
   modify:
