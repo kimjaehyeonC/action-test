@@ -91,7 +91,7 @@
       "status": "FINISHED"
     },
     {
-      "text": "%spark.pyspark\n\n\nprint(\"111112222233333\")\n",
+      "text": "%spark.pyspark\n\n\nprint(\"11111222223333355555\")\n",
       "user": "jhkim",
       "dateUpdated": "2026-04-24 10:34:16.567",
       "progress": 0,
